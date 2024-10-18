@@ -1,0 +1,51 @@
+---
+title: "Análisis de datasaurus"
+author: "Kelly Paltin"
+date: "2024-10-18"
+output: html_document
+---
+
+## Instalación de Paquetes
+
+Primero, instalamos y cargamos los paquetes necesarios.
+
+```{r message=FALSE, warning=FALSE}
+# Instalamos los paquetes
+#install.packages("tidyverse")
+#install.packages("datasauRus")
+
+# Cargamos las librerías
+library(tidyverse)
+library(datasauRus)
+library(dplyr)
+
+```
+
+## Resumen Estadístico
+Realizamos un resumen estadístico para los diferentes datasets de Datasaurus que incluye cálculo de media, desviación estándar y correlación:
+
+```{r message=FALSE, warning=FALSE}
+datasaurus_dozen %>%
+  group_by(dataset) %>%
+  summarize(
+    mean_x = mean(x),
+    mean_y = mean(y),
+    std_dev_x = sd(x),
+    std_dev_y = sd(y),
+    corr_x_y = cor(x, y)
+  )
+
+```
+
+## Visualización de Datasaurus
+Graficamos los distintos datasets utilizando ggplot2.
+
+```{r message=FALSE, warning=FALSE}
+library(ggplot2)
+ggplot(datasaurus_dozen, aes(x = x, y = y, colour = dataset)) +
+  geom_point() +
+  theme_void() +
+  theme(legend.position = "none") +
+  facet_wrap(~dataset, ncol = 3)
+
+```
